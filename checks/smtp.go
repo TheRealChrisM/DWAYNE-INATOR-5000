@@ -129,5 +129,4 @@ func (c Smtp) Run(teamID uint, boxIp string, res chan Result) {
 		Status: true,
 		Debug:  "successfully wrote '" + c.Body + "' to " + c.Receiver + " from " + c.Sender,
 	}
-	return
 }

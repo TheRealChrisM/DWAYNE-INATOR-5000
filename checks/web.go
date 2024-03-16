@@ -79,7 +79,7 @@ func (c Web) Run(teamID uint, boxIp string, res chan Result) {
 		reFind := re.Find(body)
 		if reFind == nil {
 			res <- Result{
-				Error: "didn't find regex on page :(",
+				Error: "didn't find regex on page :(",
 				Debug: "couldn't find regex \"" + u.Regex + "\" for " + u.Path,
 			}
 			return
