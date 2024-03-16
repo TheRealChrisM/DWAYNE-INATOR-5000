@@ -28,7 +28,7 @@ func (c Imap) Run(teamID uint, boxIp string, res chan Result) {
 	if c.Encrypted {
 		cl, err = client.DialWithDialerTLS(&dialer, fmt.Sprintf("%s:%d", boxIp, c.Port), &tls.Config{})
 	} else {
-		cl, err = client.DialWithDialer(&dialer, fmt.Sprintf("%s:%s", boxIp, c.Port))
+		cl, err = client.DialWithDialer(&dialer, fmt.Sprintf("%s:%d", boxIp, c.Port))
 	}
 	if err != nil {
 		res <- Result{
