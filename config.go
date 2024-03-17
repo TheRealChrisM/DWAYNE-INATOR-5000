@@ -83,6 +83,7 @@ type Box struct {
 	Vnc       []checks.Vnc
 	Web       []checks.Web
 	WinRM     []checks.WinRM
+	Ntp       []checks.Ntp
 }
 
 func (b Box) InjectTime() time.Time {
@@ -135,6 +136,9 @@ func getBoxChecks(b Box) []checks.Check {
 		checkList = append(checkList, c)
 	}
 	for _, c := range b.WinRM {
+		checkList = append(checkList, c)
+	}
+	for _, c := range b.Ntp {
 		checkList = append(checkList, c)
 	}
 	return checkList
@@ -632,6 +636,16 @@ func validateChecks(boxList []Box) error {
 					if r.UseRegex && r.Contains {
 						return errors.New("cannot use both regex and contains")
 					}
+				}
+				boxList[i].CheckList[j] = ck
+			case checks.Ntp:
+				ck := c.(checks.Ntp)
+				ck.IP = b.IP
+				if ck.Display == "" {
+					ck.Display = "ntp"
+				}
+				if ck.Name == "" {
+					ck.Name = b.Name + "-" + ck.Display
 				}
 				boxList[i].CheckList[j] = ck
 			}
